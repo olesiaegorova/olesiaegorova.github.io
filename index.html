@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Website</title>
     <style>
-        /* Global styles */
+        
         body {
-            background-color: pink; /* Ensuring the background is pink */
+            background-color: pink; 
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
-            margin: 0; /* Reset default margin */
+            margin: 0; 
         }
 
-        /* Chatbox styles */
+    
         .chatbox-container {
             width: 300px;
             background-color: #fff;
@@ -105,7 +105,7 @@
     <h1>Welcome to our Website!</h1>
     <p>This is a remake of the Unsent Project. Leave an anonymous message for someone!</p>
 
-    <!-- Chatbox -->
+    
     <div class="chatbox-container">
         <div class="chatbox-header">
             <h4>Leave a message for someone you miss:</h4>
@@ -113,7 +113,7 @@
         </div>
         <div class="chatbox-content">
             <div class="messages" id="messages">
-                <!-- Messages will appear here -->
+            
             </div>
         </div>
         <div class="chatbox-footer">
@@ -123,28 +123,28 @@
     </div>
 
     <script>
-        // Send message when "Send" button is clicked
+    
         document.getElementById('sendBtn').addEventListener('click', function() {
             var userMessage = document.getElementById('userInput').value;
             
             if (userMessage.trim() !== '') {
-                // Display user message
+                
                 displayMessage(userMessage, 'user-msg');
-                document.getElementById('userInput').value = ''; // Clear input field
+                document.getElementById('userInput').value = ''; 
 
-                // Simulate bot response after a short delay
+                
                 setTimeout(() => {
                     displayMessage('I miss them too!', 'bot-msg');
                 }, 1000);
             }
         });
 
-        // Close chat box when the "X" button is clicked
+        
         document.getElementById('closeBtn').addEventListener('click', function() {
             document.querySelector('.chatbox-container').style.display = 'none';
         });
 
-        // Function to display messages
+        
         function displayMessage(message, className) {
             var messageElement = document.createElement('div');
             messageElement.classList.add('message', className);
