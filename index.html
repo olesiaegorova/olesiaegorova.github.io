@@ -177,37 +177,3 @@
 
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Little Star Decoration</title>
-    <style>
-        .star {
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 20px solid yellow;
-            position: relative;
-            margin: 50px;
-        }
-        .star:before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 20px solid yellow;
-            transform: rotate(45deg);
-        }
-    </style>
-</head>
-<body>
-    <div class="star"></div>
-</body>
-</html>
