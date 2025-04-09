@@ -1,5 +1,3 @@
-
-<div class="bow"></div>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,171 +5,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Website</title>
     <style>
+        /* Global styles */
         body {
-            background-color: pink;
+            background-color: pink; /* Ensuring the background is pink */
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
+            margin: 0; /* Reset default margin */
+        }
+
+        /* Chatbox styles */
+        .chatbox-container {
+            width: 300px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .chatbox-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .chatbox-header h4 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .chatbox-header button {
+            background-color: #ff5c5c;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .chatbox-content {
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .chatbox-footer {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+
+        .chatbox-footer input {
+            width: 80%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .chatbox-footer button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .messages {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .user-msg {
+            text-align: right;
+            color: #007bff;
+        }
+
+        .bot-msg {
+            text-align: left;
+            color: #333;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to our Website! </h1>
-    <p>This is a remake of the Unsent Project. Leave an anonymous message for someone ! .</p>
+    <h1>Welcome to our Website!</h1>
+    <p>This is a remake of the Unsent Project. Leave an anonymous message for someone!</p>
+
+    <!-- Chatbox -->
+    <div class="chatbox-container">
+        <div class="chatbox-header">
+            <h4>Leave a message for someone you miss:</h4>
+            <button id="closeBtn">X</button>
+        </div>
+        <div class="chatbox-content">
+            <div class="messages" id="messages">
+                <!-- Messages will appear here -->
+            </div>
+        </div>
+        <div class="chatbox-footer">
+            <input type="text" id="userInput" placeholder="Type a message..." />
+            <button id="sendBtn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Send message when "Send" button is clicked
+        document.getElementById('sendBtn').addEventListener('click', function() {
+            var userMessage = document.getElementById('userInput').value;
+            
+            if (userMessage.trim() !== '') {
+                // Display user message
+                displayMessage(userMessage, 'user-msg');
+                document.getElementById('userInput').value = ''; // Clear input field
+
+                // Simulate bot response after a short delay
+                setTimeout(() => {
+                    displayMessage('I miss them too!', 'bot-msg');
+                }, 1000);
+            }
+        });
+
+        // Close chat box when the "X" button is clicked
+        document.getElementById('closeBtn').addEventListener('click', function() {
+            document.querySelector('.chatbox-container').style.display = 'none';
+        });
+
+        // Function to display messages
+        function displayMessage(message, className) {
+            var messageElement = document.createElement('div');
+            messageElement.classList.add('message', className);
+            messageElement.innerText = message;
+
+            document.getElementById('messages').appendChild(messageElement);
+            document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight; // Auto scroll to bottom
+        }
+    </script>
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat Box</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f4f4f9;
-    }
 
-    .chatbox-container {
-      width: 300px;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-    }
-
-    .chatbox-header {
-      background-color: #007bff;
-      color: #fff;
-      padding: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-radius: 10px 10px 0 0;
-    }
-
-    .chatbox-header h4 {
-      margin: 0;
-      font-size: 16px;
-    }
-
-    .chatbox-header button {
-      background-color: #ff5c5c;
-      border: none;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .chatbox-content {
-      max-height: 250px;
-      overflow-y: auto;
-      padding: 10px;
-      background-color: #f9f9f9;
-    }
-
-    .chatbox-footer {
-      display: flex;
-      padding: 10px;
-      border-top: 1px solid #ddd;
-      background-color: #f9f9f9;
-    }
-
-    .chatbox-footer input {
-      width: 80%;
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-
-    .chatbox-footer button {
-      background-color: #007bff;
-      color: white;
-      padding: 8px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .messages {
-      max-height: 200px;
-      overflow-y: auto;
-    }
-
-    .message {
-      margin-bottom: 10px;
-    }
-
-    .user-msg {
-      text-align: right;
-      color: #007bff;
-    }
-
-    .bot-msg {
-      text-align: left;
-      color: #333;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="chatbox-container">
-    <div class="chatbox-header">
-      <h4>Leave a message for someone you miss:</h4>
-      <button id="closeBtn">X</button>
-    </div>
-    <div class="chatbox-content">
-      <div class="messages" id="messages">
-        <!-- Messages will appear here -->
-      </div>
-    </div>
-    <div class="chatbox-footer">
-      <input type="text" id="userInput" placeholder="Type a message..." />
-      <button id="sendBtn">Send</button>
-    </div>
-  </div>
-
-  <script>
-    // Send message when "Send" button is clicked
-    document.getElementById('sendBtn').addEventListener('click', function() {
-      var userMessage = document.getElementById('userInput').value;
-      
-      if (userMessage.trim() !== '') {
-        // Display user message
-        displayMessage(userMessage, 'user-msg');
-        document.getElementById('userInput').value = ''; // Clear input field
-
-        // Simulate bot response after a short delay
-        setTimeout(() => {
-          displayMessage('I miss them too!', 'bot-msg');
-        }, 1000);
-      }
-    });
-
-    // Close chat box when the "X" button is clicked
-    document.getElementById('closeBtn').addEventListener('click', function() {
-      document.querySelector('.chatbox-container').style.display = 'none';
-    });
-
-    // Function to display messages
-    function displayMessage(message, className) {
-      var messageElement = document.createElement('div');
-      messageElement.classList.add('message', className);
-      messageElement.innerText = message;
-
-      document.getElementById('messages').appendChild(messageElement);
-      document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight; // Auto scroll to bottom
-    }
-  </script>
 
