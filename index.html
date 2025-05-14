@@ -114,7 +114,7 @@
     <h1>Welcome to our Website!</h1>
     <p>This is a remake of the Unsent Project. Leave an anonymous message for someone!</p>
 
-    <!-- 🆕 Display area for central message -->
+    <!-- Display area for central message -->
     <div id="displayMessage"></div>
 
     <div class="chatbox-container">
@@ -137,13 +137,11 @@
             var userMessage = document.getElementById('userInput').value;
 
             if (userMessage.trim() !== '') {
-                // Show in chatbox
-              
-
-                // Show in the center of the page
+                // REMOVE: displayMessage(userMessage, 'user-msg');
+                // Just show the message in the background
                 document.getElementById('displayMessage').innerText = userMessage;
 
-                // Clear input
+                // Clear input field
                 document.getElementById('userInput').value = '';
             }
         });
@@ -151,18 +149,10 @@
         document.getElementById('closeBtn').addEventListener('click', function () {
             document.querySelector('.chatbox-container').style.display = 'none';
         });
-
-        function displayMessage(message, className) {
-            var messageElement = document.createElement('div');
-            messageElement.classList.add('message', className);
-            messageElement.innerText = message;
-
-            document.getElementById('messages').appendChild(messageElement);
-            document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-        }
     </script>
 </body>
 </html>
+
 
 
    
