@@ -21,6 +21,10 @@
             color: #444;
             max-width: 80%;
             word-wrap: break-word;
+            /* Ensure the container allows the messages to pile up */
+            min-height: 200px;
+            max-height: 500px;
+            overflow-y: auto;
         }
 
         /* Chatbox container now centered */
@@ -137,11 +141,23 @@
             var userMessage = document.getElementById('userInput').value;
 
             if (userMessage.trim() !== '') {
-                // REMOVE: displayMessage(userMessage, 'user-msg');
-                // Just show the message in the background
-                document.getElementById('displayMessage').innerText = userMessage;
+                // Create a new div for the message
+                var messageDiv = document.createElement('div');
+                messageDiv.innerText = userMessage;
 
-                // Clear input field
+                // Optional: Style it the same as before
+                messageDiv.style.marginTop = '10px';
+                messageDiv.style.fontSize = '24px';
+                messageDiv.style.fontWeight = 'bold';
+                messageDiv.style.color = '#444';
+                messageDiv.style.maxWidth = '80%';
+                messageDiv.style.wordWrap = 'break-word';
+                messageDiv.style.margin = '10px auto';
+
+                // Append the new message to the #displayMessage div
+                document.getElementById('displayMessage').appendChild(messageDiv);
+
+                // Clear the input field after sending the message
                 document.getElementById('userInput').value = '';
             }
         });
@@ -152,6 +168,7 @@
     </script>
 </body>
 </html>
+
 
 
 
