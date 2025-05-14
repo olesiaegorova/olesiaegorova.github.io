@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,30 +5,31 @@
     <title>My Website</title>
     <style>
         body {
-            background-color: pink;
+            background-color: pink; 
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
-            margin: 0;
+            margin: 0; 
         }
 
-        #backgroundMessages {
-            margin-top: 20px;
+        /* Center display for the user's message */
+        #displayMessage {
+            margin: 40px auto;
             font-size: 24px;
             font-weight: bold;
             color: #444;
             max-width: 80%;
             word-wrap: break-word;
+            /* Ensure the container allows the messages to pile up */
             min-height: 200px;
             max-height: 500px;
             overflow-y: auto;
-            margin: 0 auto;
-            text-align: center;
         }
 
+        /* Chatbox container now centered */
         .chatbox-container {
             width: 300px;
-            background-color: #ffc0cb;
+            background-color: #ffc0cb; 
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             display: flex;
@@ -63,6 +63,13 @@
             cursor: pointer;
         }
 
+        .chatbox-content {
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
         .chatbox-footer {
             display: flex;
             padding: 10px;
@@ -86,6 +93,11 @@
             cursor: pointer;
         }
 
+        .messages {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
         .message {
             margin-bottom: 10px;
         }
@@ -105,13 +117,17 @@
     <h1>Welcome to our Website!</h1>
     <p>This is a remake of the Unsent Project. Leave an anonymous message for someone!</p>
 
-    <!-- Display area for background messages -->
-    <div id="backgroundMessages"></div>
+    <!-- Display area for central message -->
+    <div id="displayMessage"></div>
 
     <div class="chatbox-container">
         <div class="chatbox-header">
             <h4>Leave a message for someone you miss:</h4>
             <button id="closeBtn">X</button>
+        </div>
+        <div class="chatbox-content">
+            <div class="messages" id="messages">
+            </div>
         </div>
         <div class="chatbox-footer">
             <input type="text" id="userInput" placeholder="Type a message..." />
@@ -119,61 +135,29 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        const apiUrl = 'http://localhost:5000/messages'; // Your API URL
-
-        // Fetch all messages from the backend when the page loads
-        window.onload = async function() {
-            try {
-                const response = await axios.get(apiUrl);
-                const messages = response.data;
-                const backgroundMessagesDiv = document.getElementById('backgroundMessages');
-
-                // Append all messages to the background div
-                messages.forEach(message => {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.innerText = message.content;
-                    messageDiv.style.marginTop = '10px';
-                    messageDiv.style.fontSize = '24px';
-                    messageDiv.style.fontWeight = 'bold';
-                    messageDiv.style.color = '#444';
-                    messageDiv.style.maxWidth = '80%';
-                    messageDiv.style.wordWrap = 'break-word';
-                    messageDiv.style.margin = '10px auto';
-                    backgroundMessagesDiv.appendChild(messageDiv);
-                });
-            } catch (error) {
-                console.error('Error fetching messages:', error);
-            }
-        };
-
-        // Handle message submission
-        document.getElementById('sendBtn').addEventListener('click', async function () {
-            const userMessage = document.getElementById('userInput').value;
+        document.getElementById('sendBtn').addEventListener('click', function () {
+            var userMessage = document.getElementById('userInput').value;
 
             if (userMessage.trim() !== '') {
-                try {
-                    // Send the new message to the backend
-                    await axios.post(apiUrl, { content: userMessage });
+                // Create a new div for the message
+                var messageDiv = document.createElement('div');
+                messageDiv.innerText = userMessage;
 
-                    // Add the new message to the background div
-                    const messageDiv = document.createElement('div');
-                    messageDiv.innerText = userMessage;
-                    messageDiv.style.marginTop = '10px';
-                    messageDiv.style.fontSize = '24px';
-                    messageDiv.style.fontWeight = 'bold';
-                    messageDiv.style.color = '#444';
-                    messageDiv.style.maxWidth = '80%';
-                    messageDiv.style.wordWrap = 'break-word';
-                    messageDiv.style.margin = '10px auto';
-                    document.getElementById('backgroundMessages').appendChild(messageDiv);
+                // Optional: Style it the same as before
+                messageDiv.style.marginTop = '10px';
+                messageDiv.style.fontSize = '24px';
+                messageDiv.style.fontWeight = 'bold';
+                messageDiv.style.color = '#444';
+                messageDiv.style.maxWidth = '80%';
+                messageDiv.style.wordWrap = 'break-word';
+                messageDiv.style.margin = '10px auto';
 
-                    // Clear the input field
-                    document.getElementById('userInput').value = '';
-                } catch (error) {
-                    console.error('Error sending message:', error);
-                }
+                // Append the new message to the #displayMessage div
+                document.getElementById('displayMessage').appendChild(messageDiv);
+
+                // Clear the input field after sending the message
+                document.getElementById('userInput').value = '';
             }
         });
 
@@ -182,7 +166,6 @@
         });
     </script>
 </body>
-</html>
 
 
 
