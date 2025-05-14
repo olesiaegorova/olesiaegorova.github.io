@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Website</title>
     <style>
-        
         body {
             background-color: pink; 
             font-family: Arial, sans-serif;
@@ -13,17 +12,18 @@
             padding: 20px;
             margin: 0; 
         }
-#displayMessage {
-    margin: 40px auto;
-    font-size: 24px;
-    font-weight: bold;
-    color: #444;
-    max-width: 80%;
-    word-wrap: break-word;
-}
 
-    <div id="displayMessage"></div>
+        /* Center display for the user's message */
+        #displayMessage {
+            margin: 40px auto;
+            font-size: 24px;
+            font-weight: bold;
+            color: #444;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
 
+        /* Chatbox container now centered */
         .chatbox-container {
             width: 300px;
             background-color: #fff;
@@ -31,9 +31,9 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
+            position: relative;
+            margin: 0 auto;
+            margin-top: 40px;
         }
 
         .chatbox-header {
@@ -114,7 +114,9 @@
     <h1>Welcome to our Website!</h1>
     <p>This is a remake of the Unsent Project. Leave an anonymous message for someone!</p>
 
-    
+    <!-- 🆕 Display area for central message -->
+    <div id="displayMessage"></div>
+
     <div class="chatbox-container">
         <div class="chatbox-header">
             <h4>Leave a message for someone you miss:</h4>
@@ -122,7 +124,6 @@
         </div>
         <div class="chatbox-content">
             <div class="messages" id="messages">
-            
             </div>
         </div>
         <div class="chatbox-footer">
@@ -132,38 +133,36 @@
     </div>
 
     <script>
-    
-        document.getElementById('sendBtn').addEventListener('click', function() {
+        document.getElementById('sendBtn').addEventListener('click', function () {
             var userMessage = document.getElementById('userInput').value;
-            
+
             if (userMessage.trim() !== '') {
-                
+                // Show in chatbox
                 displayMessage(userMessage, 'user-msg');
+
+                // Show in the center of the page
                 document.getElementById('displayMessage').innerText = userMessage;
 
-                document.getElementById('userInput').value = ''; 
-
-                
-               
+                // Clear input
+                document.getElementById('userInput').value = '';
             }
         });
 
-        
-        document.getElementById('closeBtn').addEventListener('click', function() {
+        document.getElementById('closeBtn').addEventListener('click', function () {
             document.querySelector('.chatbox-container').style.display = 'none';
         });
 
-        
         function displayMessage(message, className) {
             var messageElement = document.createElement('div');
             messageElement.classList.add('message', className);
             messageElement.innerText = message;
 
             document.getElementById('messages').appendChild(messageElement);
-            document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight; // Auto scroll to bottom
+            document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
         }
     </script>
 </body>
 </html>
 
 
+   
