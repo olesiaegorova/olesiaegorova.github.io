@@ -1,166 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <style>
-        body {
-            background-color: pink; 
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-            margin: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Website</title>
+  <style>
+    body {
+      background-color: pink;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+    }
 
-        #displayMessage {
-            position: relative;
-            height: 500px;
-            margin: 40px auto 20px auto;
-            width: 90%;
-            max-width: 800px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            overflow: hidden;
-        }
+    #displayMessage {
+      position: relative;
+      height: 500px;
+      margin: 40px auto 20px auto;
+      width: 90%;
+      max-width: 800px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      overflow: hidden;
+    }
 
-        .chatbox-container {
-            width: 300px;
-            background-color: #ffc0cb; 
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            margin: 0 auto;
-        }
+    .chatbox-container {
+      width: 300px;
+      background-color: #ffc0cb;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      margin: 0 auto;
+    }
 
-        .chatbox-header {
-            background-color: #ff69b4;
-            color: #fff;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 10px 10px 0 0;
-        }
+    .chatbox-header {
+      background-color: #ff69b4;
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 10px 10px 0 0;
+    }
 
-        .chatbox-header h4 {
-            margin: 0;
-            font-size: 16px;
-        }
+    .chatbox-footer {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ddd;
+      background-color: #f9f9f9;
+    }
 
-        .chatbox-header button {
-            background-color: #ff5c5c;
-            border: none;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    .chatbox-footer input {
+      width: 80%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
 
-        .chatbox-content {
-            max-height: 250px;
-            overflow-y: auto;
-            padding: 10px;
-            background-color: #f9f9f9;
-        }
+    .chatbox-footer button {
+      background-color: #007bff;
+      color: white;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-        .chatbox-footer {
-            display: flex;
-            padding: 10px;
-            border-top: 1px solid #ddd;
-            background-color: #f9f9f9;
-        }
+    .message-bubble {
+      position: absolute;
+      padding: 10px 15px;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      font-size: 16px;
+      max-width: 200px;
+      word-wrap: break-word;
+      color: #444;
+      animation: fadeIn 0.6s ease-in;
+    }
 
-        .chatbox-footer input {
-            width: 80%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
 
-        .chatbox-footer button {
-            background-color: #007bff;
-            color: white;
-            padding: 8px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .message-bubble {
-            position: absolute;
-            padding: 10px 15px;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            font-size: 16px;
-            max-width: 200px;
-            word-wrap: break-word;
-            color: #444;
-            animation: fadeIn 0.6s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-    </style>
+    #viewMessagesBtn {
+      margin-top: 20px;
+      background-color: #ff69b4;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <h1>Welcome to our Website!</h1>
-    <p>This is a remake of the Unsent Project. Leave an anonymous message for someone!</p>
+  <h1>Welcome to our Website!</h1>
+  <p>This is a remake of the Unsent Project. Leave an anonymous message for someone!</p>
 
-    <!-- Message display area -->
-    <div id="displayMessage"></div>
+  <button id="viewMessagesBtn" onclick="location.href='all-messages.html'">View All Messages</button>
 
-    <!-- Chatbox -->
-    <div class="chatbox-container">
-        <div class="chatbox-header">
-            <h4>Leave a message for someone you miss:</h4>
-            <button id="closeBtn">X</button>
-        </div>
-        <div class="chatbox-content">
-            <div class="messages" id="messages"></div>
-        </div>
-        <div class="chatbox-footer">
-            <input type="text" id="userInput" placeholder="Type a message..." />
-            <button id="sendBtn">Send</button>
-        </div>
+  <div id="displayMessage"></div>
+
+  <div class="chatbox-container">
+    <div class="chatbox-header">
+      <h4>Leave a message for someone you miss:</h4>
+      <button id="closeBtn">X</button>
     </div>
+    <div class="chatbox-footer">
+      <input type="text" id="userInput" placeholder="Type a message..." />
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
 
-    <!-- Script -->
-    <script>
-        document.getElementById('sendBtn').addEventListener('click', function () {
-            var userMessage = document.getElementById('userInput').value;
-            var displayArea = document.getElementById('displayMessage');
+  <script>
+    const displayArea = document.getElementById('displayMessage');
 
-            if (userMessage.trim() !== '') {
-                var messageDiv = document.createElement('div');
-                messageDiv.className = 'message-bubble';
-                messageDiv.innerText = userMessage;
+    function createMessageBubble(text) {
+      const bubble = document.createElement('div');
+      bubble.className = 'message-bubble';
+      bubble.innerText = text;
 
-                // Random placement
-                const maxWidth = displayArea.offsetWidth - 220;
-                const maxHeight = displayArea.offsetHeight - 60;
-                const randX = Math.floor(Math.random() * maxWidth);
-                const randY = Math.floor(Math.random() * maxHeight);
-                messageDiv.style.left = randX + 'px';
-                messageDiv.style.top = randY + 'px';
+      const maxWidth = displayArea.offsetWidth - 220;
+      const maxHeight = displayArea.offsetHeight - 60;
+      const randX = Math.floor(Math.random() * maxWidth);
+      const randY = Math.floor(Math.random() * maxHeight);
+      bubble.style.left = randX + 'px';
+      bubble.style.top = randY + 'px';
 
-                displayArea.appendChild(messageDiv);
+      displayArea.appendChild(bubble);
+    }
 
-                document.getElementById('userInput').value = '';
-            }
-        });
+    // Load existing messages from localStorage
+    const savedMessages = JSON.parse(localStorage.getItem('unsentMessages')) || [];
+    savedMessages.forEach(msg => createMessageBubble(msg));
 
-        document.getElementById('closeBtn').addEventListener('click', function () {
-            document.querySelector('.chatbox-container').style.display = 'none';
-        });
-    </script>
+    // Handle sending new message
+    document.getElementById('sendBtn').addEventListener('click', function () {
+      const userMessage = document.getElementById('userInput').value.trim();
+      if (userMessage !== '') {
+        createMessageBubble(userMessage);
+
+        // Save to localStorage
+        savedMessages.push(userMessage);
+        localStorage.setItem('unsentMessages', JSON.stringify(savedMessages));
+
+        document.getElementById('userInput').value = '';
+      }
+    });
+
+    document.getElementById('closeBtn').addEventListener('click', function () {
+      document.querySelector('.chatbox-container').style.display = 'none';
+    });
+  </script>
 </body>
 </html>
+
 
 
 
