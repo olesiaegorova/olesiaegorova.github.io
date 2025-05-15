@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,24 +10,20 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
-            margin: 0; 
+            margin: 0;
         }
 
-        /* Center display for the user's message */
         #displayMessage {
-            margin: 40px auto;
-            font-size: 24px;
-            font-weight: bold;
-            color: #444;
-            max-width: 80%;
-            word-wrap: break-word;
-            /* Ensure the container allows the messages to pile up */
-            min-height: 200px;
-            max-height: 500px;
-            overflow-y: auto;
+            position: relative;
+            height: 500px;
+            margin: 40px auto 20px auto;
+            width: 90%;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
         }
 
-        /* Chatbox container now centered */
         .chatbox-container {
             width: 300px;
             background-color: #ffc0cb; 
@@ -36,7 +33,6 @@
             flex-direction: column;
             position: relative;
             margin: 0 auto;
-            margin-top: 40px;
         }
 
         .chatbox-header {
@@ -93,23 +89,22 @@
             cursor: pointer;
         }
 
-        .messages {
-            max-height: 200px;
-            overflow-y: auto;
+        .message-bubble {
+            position: absolute;
+            padding: 10px 15px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 16px;
+            max-width: 200px;
+            word-wrap: break-word;
+            color: #444;
+            animation: fadeIn 0.6s ease-in;
         }
 
-        .message {
-            margin-bottom: 10px;
-        }
-
-        .user-msg {
-            text-align: right;
-            color: #007bff;
-        }
-
-        .bot-msg {
-            text-align: left;
-            color: #333;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
@@ -117,17 +112,17 @@
     <h1>Welcome to our Website!</h1>
     <p>This is a remake of the Unsent Project. Leave an anonymous message for someone!</p>
 
-    <!-- Display area for central message -->
+    <!-- Message display area -->
     <div id="displayMessage"></div>
 
+    <!-- Chatbox -->
     <div class="chatbox-container">
         <div class="chatbox-header">
             <h4>Leave a message for someone you miss:</h4>
             <button id="closeBtn">X</button>
         </div>
         <div class="chatbox-content">
-            <div class="messages" id="messages">
-            </div>
+            <div class="messages" id="messages"></div>
         </div>
         <div class="chatbox-footer">
             <input type="text" id="userInput" placeholder="Type a message..." />
@@ -135,28 +130,27 @@
         </div>
     </div>
 
+    <!-- Script -->
     <script>
         document.getElementById('sendBtn').addEventListener('click', function () {
             var userMessage = document.getElementById('userInput').value;
+            var displayArea = document.getElementById('displayMessage');
 
             if (userMessage.trim() !== '') {
-                // Create a new div for the message
                 var messageDiv = document.createElement('div');
+                messageDiv.className = 'message-bubble';
                 messageDiv.innerText = userMessage;
 
-                // Optional: Style it the same as before
-                messageDiv.style.marginTop = '10px';
-                messageDiv.style.fontSize = '24px';
-                messageDiv.style.fontWeight = 'bold';
-                messageDiv.style.color = '#444';
-                messageDiv.style.maxWidth = '80%';
-                messageDiv.style.wordWrap = 'break-word';
-                messageDiv.style.margin = '10px auto';
+                // Random placement
+                const maxWidth = displayArea.offsetWidth - 220;
+                const maxHeight = displayArea.offsetHeight - 60;
+                const randX = Math.floor(Math.random() * maxWidth);
+                const randY = Math.floor(Math.random() * maxHeight);
+                messageDiv.style.left = randX + 'px';
+                messageDiv.style.top = randY + 'px';
 
-                // Append the new message to the #displayMessage div
-                document.getElementById('displayMessage').appendChild(messageDiv);
+                displayArea.appendChild(messageDiv);
 
-                // Clear the input field after sending the message
                 document.getElementById('userInput').value = '';
             }
         });
@@ -166,6 +160,8 @@
         });
     </script>
 </body>
+</html>
+
 
 
 
