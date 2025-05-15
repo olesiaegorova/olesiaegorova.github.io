@@ -1,27 +1,102 @@
-<script>
-  const displayArea = document.getElementById('displayMessage');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>All Messages</title>
+  <style>
+    body {
+      background-color: pink;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
 
-  function createMessageBubble(text, index) {
-    const bubble = document.createElement('a');
-    bubble.className = 'message-bubble';
-    bubble.innerText = text;
+    #displayMessage {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      border: 2px solid #ff69b4;
+      border-radius: 15px;
+      margin: 20px auto;
+      overflow: hidden;
+      background-color: #ffe4f1;
+    }
 
-    // Positioning
-    const maxWidth = displayArea.offsetWidth - 220;
-    const maxHeight = displayArea.offsetHeight - 60;
-    const randX = Math.floor(Math.random() * maxWidth);
-    const randY = Math.floor(Math.random() * maxHeight);
-    bubble.style.left = randX + 'px';
-    bubble.style.top = randY + 'px';
+    .message-bubble {
+      position: absolute;
+      background: #fff;
+      border-radius: 25px;
+      padding: 10px 15px 10px 50px;
+      max-width: 200px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      color: #444;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.2s ease;
+    }
+    .message-bubble:hover {
+      transform: scale(1.1);
+    }
 
-    // Make it a clickable link
-    bubble.href = `message.html?index=${index}`;
+    .message-bubble img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
 
-    displayArea.appendChild(bubble);
-  }
+  </style>
+</head>
+<body>
 
-  const savedMessages = JSON.parse(localStorage.getItem('unsentMessages')) || [];
-  savedMessages.forEach((msg, i) => createMessageBubble(msg, i));
-</script>
+  <h1>All Messages</h1>
+  <div id="displayMessage"></div>
+  <button onclick="location.href='index.html'">Back to Home</button>
+
+  <script>
+    const displayArea = document.getElementById('displayMessage');
+
+    function createMessageBubble(text, index) {
+      const bubble = document.createElement('a');
+      bubble.className = 'message-bubble';
+      bubble.href = `message.html?index=${index}`;
+      bubble.title = "Click to see message";
+
+      // Cat image from placekitten.com with random size variations for variety
+      const size = 40 + Math.floor(Math.random() * 20); // 40 to 59 px
+      const img = document.createElement('img');
+      img.src = `https://placekitten.com/${size}/${size}`;
+      img.alt = 'Cute cat';
+
+      const messageText = document.createElement('span');
+      messageText.innerText = text;
+
+      bubble.appendChild(img);
+      bubble.appendChild(messageText);
+
+      // Random position within display area
+      const maxWidth = displayArea.clientWidth - 220; // leave space for bubble width
+      const maxHeight = displayArea.clientHeight - 60;
+      const randX = Math.floor(Math.random() * maxWidth);
+      const randY = Math.floor(Math.random() * maxHeight);
+      bubble.style.left = randX + 'px';
+      bubble.style.top = randY + 'px';
+
+      displayArea.appendChild(bubble);
+    }
+
+    const savedMessages = JSON.parse(localStorage.getItem('unsentMessages')) || [];
+    savedMessages.forEach((msg, i) => createMessageBubble(msg, i));
+  </script>
+</body>
+</html>
+
 
 
