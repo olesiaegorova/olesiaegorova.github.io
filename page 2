@@ -1,88 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>All Messages</title>
-  <style>
-    body {
-      background-color: pink;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-      margin: 0;
-    }
+<script>
+  const displayArea = document.getElementById('displayMessage');
 
-    #displayMessage {
-      position: relative;
-      height: 500px;
-      margin: 40px auto 20px auto;
-      width: 90%;
-      max-width: 800px;
-      background-color: rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      overflow: hidden;
-    }
+  function createMessageBubble(text, index) {
+    const bubble = document.createElement('a');
+    bubble.className = 'message-bubble';
+    bubble.innerText = text;
 
-    .message-bubble {
-      position: absolute;
-      padding: 10px 15px;
-      background-color: white;
-      border-radius: 15px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      font-size: 16px;
-      max-width: 200px;
-      word-wrap: break-word;
-      color: #444;
-      animation: fadeIn 0.6s ease-in;
-    }
+    // Positioning
+    const maxWidth = displayArea.offsetWidth - 220;
+    const maxHeight = displayArea.offsetHeight - 60;
+    const randX = Math.floor(Math.random() * maxWidth);
+    const randY = Math.floor(Math.random() * maxHeight);
+    bubble.style.left = randX + 'px';
+    bubble.style.top = randY + 'px';
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
+    // Make it a clickable link
+    bubble.href = `message.html?index=${index}`;
 
-    button {
-      margin-top: 20px;
-      background-color: #ff69b4;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  <h1>All Anonymous Messages</h1>
-  <p>See what others have shared.</p>
+    displayArea.appendChild(bubble);
+  }
 
-  <button onclick="location.href='index.html'">Back to Main Page</button>
+  const savedMessages = JSON.parse(localStorage.getItem('unsentMessages')) || [];
+  savedMessages.forEach((msg, i) => createMessageBubble(msg, i));
+</script>
 
-  <div id="displayMessage"></div>
 
-  <script>
-    const displayArea = document.getElementById('displayMessage');
-
-    function createMessageBubble(text) {
-      const bubble = document.createElement('div');
-      bubble.className = 'message-bubble';
-      bubble.innerText = text;
-
-      const maxWidth = displayArea.offsetWidth - 220;
-      const maxHeight = displayArea.offsetHeight - 60;
-      const randX = Math.floor(Math.random() * maxWidth);
-      const randY = Math.floor(Math.random() * maxHeight);
-      bubble.style.left = randX + 'px';
-      bubble.style.top = randY + 'px';
-
-      displayArea.appendChild(bubble);
-    }
-
-    // Load all saved messages
-    const savedMessages = JSON.parse(localStorage.getItem('unsentMessages')) || [];
-    savedMessages.forEach(msg => createMessageBubble(msg));
-  </script>
-</body>
-</html>
