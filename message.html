@@ -45,28 +45,22 @@
   </style>
 </head>
 <body>
-
   <h1>Message Detail</h1>
   <div id="messageText">Loading message...</div>
-  
-  <!-- Cat image -->
   <img id="catImage" src="images/orange-cat.jpg" alt="Cute Cat" />
-
   <br />
   <button onclick="location.href='all-messages.html'">Back to All Messages</button>
 
   <script>
-    // Get message index from URL params
     const params = new URLSearchParams(window.location.search);
     const index = params.get('index');
-
     const messageTextDiv = document.getElementById('messageText');
     const savedMessages = JSON.parse(localStorage.getItem('unsentMessages')) || [];
 
     if (index !== null && savedMessages[index]) {
-      messageTextDiv.innerText = savedMessages[index];
+      messageTextDiv.textContent = savedMessages[index];
     } else {
-      messageTextDiv.innerText = "Message not found.";
+      messageTextDiv.textContent = "Message not found.";
     }
   </script>
 </body>
