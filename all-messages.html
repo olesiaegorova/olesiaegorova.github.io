@@ -11,7 +11,6 @@
       padding: 20px;
       text-align: center;
     }
-
     #displayMessage {
       position: relative;
       width: 100%;
@@ -22,7 +21,6 @@
       overflow: hidden;
       background-color: #ffe4f1;
     }
-
     .message-bubble {
       position: absolute;
       background: #fff;
@@ -43,7 +41,6 @@
     .message-bubble:hover {
       transform: scale(1.1);
     }
-
     .message-bubble img {
       width: 40px;
       height: 40px;
@@ -51,7 +48,6 @@
       object-fit: cover;
       flex-shrink: 0;
     }
-
     button {
       margin-top: 10px;
       padding: 8px 16px;
@@ -68,7 +64,6 @@
   </style>
 </head>
 <body>
-
   <h1>All Messages</h1>
   <div id="displayMessage"></div>
   <button onclick="location.href='index.html'">Back to Home</button>
@@ -82,28 +77,20 @@
       bubble.href = `message.html?index=${index}`;
       bubble.title = "Click to see message";
 
-      // Use your saved orange cat image
       const img = document.createElement('img');
       img.src = 'images/orange-cat.jpg';
       img.alt = 'Orange cat';
-      img.style.width = '40px';
-      img.style.height = '40px';
-      img.style.objectFit = 'cover';
-      img.style.borderRadius = '50%';
 
       const messageText = document.createElement('span');
-      messageText.innerText = text;
+      messageText.textContent = text;
 
       bubble.appendChild(img);
       bubble.appendChild(messageText);
 
-      // Random position within the display area
-      const maxWidth = displayArea.clientWidth - 220;
-      const maxHeight = displayArea.clientHeight - 60;
-      const randX = Math.floor(Math.random() * maxWidth);
-      const randY = Math.floor(Math.random() * maxHeight);
-      bubble.style.left = randX + 'px';
-      bubble.style.top = randY + 'px';
+      const maxWidth = Math.max(0, displayArea.clientWidth - 220);
+      const maxHeight = Math.max(0, displayArea.clientHeight - 60);
+      bubble.style.left = Math.floor(Math.random() * maxWidth) + 'px';
+      bubble.style.top = Math.floor(Math.random() * maxHeight) + 'px';
 
       displayArea.appendChild(bubble);
     }
@@ -111,9 +98,6 @@
     const savedMessages = JSON.parse(localStorage.getItem('unsentMessages')) || [];
     savedMessages.forEach((msg, i) => createMessageBubble(msg, i));
   </script>
-</body>
-</html>
-
 </body>
 </html>
 
