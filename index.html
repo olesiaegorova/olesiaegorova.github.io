@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Website</title>
+  <title>Unsent Project</title>
   <style>
     body {
       background-color: pink;
@@ -12,7 +12,6 @@
       padding: 20px;
       margin: 0;
     }
-
     #displayMessage {
       position: relative;
       height: 500px;
@@ -23,7 +22,6 @@
       border-radius: 20px;
       overflow: hidden;
     }
-
     .chatbox-container {
       width: 300px;
       background-color: #ffc0cb;
@@ -34,7 +32,6 @@
       position: relative;
       margin: 0 auto;
     }
-
     .chatbox-header {
       background-color: #ff69b4;
       color: #fff;
@@ -44,21 +41,18 @@
       align-items: center;
       border-radius: 10px 10px 0 0;
     }
-
     .chatbox-footer {
       display: flex;
       padding: 10px;
       border-top: 1px solid #ddd;
       background-color: #f9f9f9;
     }
-
     .chatbox-footer input {
       width: 80%;
       padding: 8px;
       border: 1px solid #ddd;
       border-radius: 5px;
     }
-
     .chatbox-footer button {
       background-color: #007bff;
       color: white;
@@ -67,7 +61,6 @@
       border-radius: 5px;
       cursor: pointer;
     }
-
     .message-bubble {
       position: absolute;
       padding: 10px 15px;
@@ -80,12 +73,10 @@
       color: #444;
       animation: fadeIn 0.6s ease-in;
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.8); }
       to { opacity: 1; transform: scale(1); }
     }
-
     #viewMessagesBtn {
       margin-top: 20px;
       background-color: #ff69b4;
@@ -111,44 +102,38 @@
       <h4>Leave a message for someone you miss:</h4>
       <button id="closeBtn">X</button>
     </div>
-    <div class="chatbox-footer">
-      <input type="text" id="userInput" placeholder="Type a message..." />
-      <button id="sendBtn">Send</button>
-    </div>
+    <form id="messageForm" class="chatbox-footer">
+      <input type="text" id="userInput" placeholder="Type a message..." required />
+      <button type="submit">Send</button>
+    </form>
   </div>
 
   <script>
     const displayArea = document.getElementById('displayMessage');
+    const savedMessages = JSON.parse(localStorage.getItem('unsentMessages')) || [];
 
     function createMessageBubble(text) {
       const bubble = document.createElement('div');
       bubble.className = 'message-bubble';
-      bubble.innerText = text;
+      bubble.textContent = text;
 
-      const maxWidth = displayArea.offsetWidth - 220;
-      const maxHeight = displayArea.offsetHeight - 60;
-      const randX = Math.floor(Math.random() * maxWidth);
-      const randY = Math.floor(Math.random() * maxHeight);
-      bubble.style.left = randX + 'px';
-      bubble.style.top = randY + 'px';
+      const maxWidth = Math.max(0, displayArea.offsetWidth - 220);
+      const maxHeight = Math.max(0, displayArea.offsetHeight - 60);
+      bubble.style.left = Math.floor(Math.random() * maxWidth) + 'px';
+      bubble.style.top = Math.floor(Math.random() * maxHeight) + 'px';
 
       displayArea.appendChild(bubble);
     }
 
-    // Load existing messages from localStorage
-    const savedMessages = JSON.parse(localStorage.getItem('unsentMessages')) || [];
     savedMessages.forEach(msg => createMessageBubble(msg));
 
-    // Handle sending new message
-    document.getElementById('sendBtn').addEventListener('click', function () {
+    document.getElementById('messageForm').addEventListener('submit', function (e) {
+      e.preventDefault();
       const userMessage = document.getElementById('userInput').value.trim();
-      if (userMessage !== '') {
+      if (userMessage) {
         createMessageBubble(userMessage);
-
-        // Save to localStorage
         savedMessages.push(userMessage);
         localStorage.setItem('unsentMessages', JSON.stringify(savedMessages));
-
         document.getElementById('userInput').value = '';
       }
     });
@@ -159,11 +144,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-   
